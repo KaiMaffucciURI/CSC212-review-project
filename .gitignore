@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/*.*
+/CppProperties.json
+*.obj
+*.suo
+*.db
+*.db-shm
+*.db-wal
+*.opendb
+/.vs/project-1/v16/ipch/AutoPCH/1ba8e9e9fe6686ab
+*.exe
+*.bat
