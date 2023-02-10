@@ -1,8 +1,10 @@
 #include <iostream>
 
+#include "gradebook.h"
+
 int main()
 {
-	std::cout << "Hello World!" << std::endl;
+	//User i/o loop should be performed here
 
 	return 0;
 }
