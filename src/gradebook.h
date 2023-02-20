@@ -5,9 +5,9 @@
 #include <utility>
 
 ///Pair of uints where grade.first is the grade, grade.second is the max grade
-typedef std::pair<uint16_t, uint16_t> grade;
+typedef std::pair<uint16_t, uint16_t> gradePair;
 ///Map of grades for a single category accessed by a string key representing the entries name
-typedef std::map<std::string, grade> gradeMap
+typedef std::map<std::string, gradePair> gradeMap;
 
 /*
 Notes for Gradebook class
@@ -42,9 +42,12 @@ public:
 	/// Overwrites existing csv file for this student
 	void saveStudent(const std::string& name);
 
-	void addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
-	void modifyEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
-	void deleteEntry(EntryType type, const std::string& name);
+	//Returns true if successful, false if entry already exists
+	bool addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
+	//Returns true if successful, false if entry does not exist
+	bool modifyEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
+	//Returns true if successful, false if entry does not exist
+	bool deleteEntry(EntryType type, const std::string& name);
 
 	/// Prints a single entry from a category
 	/// Prints a simple error message if entry not found
@@ -58,11 +61,15 @@ public:
 	void printCourse(uint8_t flags = 0);
 
 private:
+	void clearData();
+
 	gradeMap labs;
 	gradeMap assignments;
 	gradeMap projects;
-	grade exam;
+	gradePair exam;
 
 	//Current student loaded
 	std::string currentStudent;
+	//To determine if changes will be unsaved when exiting / changing student
+	bool saved = true;
 };
