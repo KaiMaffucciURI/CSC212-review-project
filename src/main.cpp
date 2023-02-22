@@ -125,13 +125,13 @@ int main()
 
                 // just call modify normally, depending on type
                 if (command_args[1] == "labs") {
-                    book.modifyEntry(labs, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                    book.modifyEntry(labs, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
                 } else if (command_args[1] = "assignments") {
-                    book.modifyEntry(assignments, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                    book.modifyEntry(assignments, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
                 } else if (command_args[1] = "projects") {
-                    book.modifyEntry(projects, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                    book.modifyEntry(projects, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
                 } else if (command_args[1] = "exams") {
-                    book.modifyEntry(exams, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                    book.modifyEntry(exams, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
                 } else {
                     // bad argument(s)
                     std::cout << "you suck" << std::endl; // we can put something else here
