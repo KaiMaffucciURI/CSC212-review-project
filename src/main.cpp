@@ -38,8 +38,6 @@ int main()
         }
 
         // long if-else chain of different options
-        // we can change what the user input has to be to select different options if we want
-        // (eg. creating a student they could type "create student" instead
         if (command_args[0] == "new") {
 
             // create new student
