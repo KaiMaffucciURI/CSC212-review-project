@@ -135,7 +135,7 @@ int main()
                 std::cout << "you suck" << std::endl; // we can put something else here
             }
 
-        } else if (option == "exit" || option == "quit") {
+        } else if (command_args[0] == "exit" || command_args[0] == "quit") {
 
             std::cout << "Exiting the program..."
             // we can put a cin/are you sure prompt right here if we want it to wait for the user before actually closing
