@@ -2,6 +2,8 @@
 
 #include "gradebook.h"
 
+// might be nice to make a helper function which converts a string to a type/typedef somehow
+
 int main()
 {
 
@@ -21,7 +23,9 @@ int main()
         std::cout << "new <name>\n\tcreate new student" << std::endl;
         std::cout << "load <name>\n\tload student <name> from file into memory" << std::endl;
         std::cout << "add <type> <grade> <total>\n\tadd an assignment of type <type> with grade <grade> out of <total>" << std::endl;
-        std::cout << "view <type>\n\tdisplays all assignments of type <type>; if no <type> given, displays all assignments" << std::endl;
+        std::cout << "view <type> <name>/\n\tdisplays assignment <name> of type <type>"  <<
+                     "\n\tif no <name> is given, displays all assignments of type <type>" <<
+                     "\n\tif <type> is 'all', then it displays every assignment" << std::endl;
         std::cout << "modify <category> <name> <grade> <total>\n\tmodify grade at <index> with <grade> and <total>" << std::endl;
         std::cout << "modify all\n\tlists all grades, then prompts user for a category, name, grade and total the grade is out of" << std::endl;
         std::cout << "delete <type> <name>\n\tdeletes all entries of type <type> under name <name>"
@@ -68,19 +72,36 @@ int main()
         } else if (command_args[0] == "view") {
 
             // view all assignments of type command_args[1]
-            // might be nice to make a helper function which converts string to type somehow,
-            // so we don't have to go through this each time, if that's possible
-            if (command_args[1] == "labs") {
-                book.printCategory(labs);
-            } else if (command_args[1] = "assignments") {
-                book.printCategory(assignments);
-            } else if (command_args[1] = "projects") {
-                book.printCategory(projects);
-            } else if (command_args[1] = "exams") {
-                book.printCategory(exams);
-            } else {
-                // bad argument(s)
-                std::cout << "you suck" << std::endl; // we can put something else here
+            if (command_args.size() == 2) {
+                if (command_args[1] == "labs") {
+                    book.printCategory(labs);
+                } else if (command_args[1] = "assignments") {
+                    book.printCategory(assignments);
+                } else if (command_args[1] = "projects") {
+                    book.printCategory(projects);
+                } else if (command_args[1] = "exams") {
+                    book.printCategory(exams);
+                } else if (command_args[1] = "all") {
+                    // if it's all, print all grades
+                    book.printCourse(0);
+                } else {
+                    // bad input
+                    std::cout << "you suck" << std::endl;
+                }
+            // if we have 3 arguments, that means a name was given as well
+            } else if (command_args.size() == 3) {
+                if (command_args[1] == "labs") {
+                    book.printCategory(labs, command_args[2]);
+                } else if (command_args[1] = "assignments") {
+                    book.printCategory(assignments, command_args[2]);
+                } else if (command_args[1] = "projects") {
+                    book.printCategory(projects, command_args[2]);
+                } else if (command_args[1] = "exams") {
+                    book.printCategory(exams, command_args[2]);
+                } else {
+                    // bad input
+                    std::cout << "you suck" << std::endl;
+                }
             }
 
         } else if (command_args[0] == "modify") {
