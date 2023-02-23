@@ -18,7 +18,9 @@ int main()
 {
 	//User i/o loop should be performed here
 	Gradebook g;
-	g.loadStudent("C:\\Projects\\Spring2023\\project-1\\data\\teststudent");
+	g.loadStudent("teststudent");
+	g.addEntry(Gradebook::EntryType::lab, "lab2", 17, 20);
+	g.saveStudent();
 
 	return 0;
 }

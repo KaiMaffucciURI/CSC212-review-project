@@ -28,7 +28,7 @@ bool Gradebook::createStudent(const std::string& name)
 
 bool Gradebook::loadStudent(const std::string& name)
 {
-	std::ifstream ifs(name + ".grades");
+	std::ifstream ifs("data\\" + name + ".grades");
 	if (!ifs.good())
 	{
 		ifs.close();
@@ -173,12 +173,47 @@ bool Gradebook::loadStudent(const std::string& name)
 		exam = gradePair(grade, maxGrade);
 	}
 
+	currentStudent = name;
+
 	return true;
 }
 
-void Gradebook::saveStudent(const std::string& name)
+bool Gradebook::saveStudent()
 {
-	return;
+	std::ofstream ofs("data\\" + currentStudent + ".grades", std::ofstream::trunc);
+	if (!ofs.good())
+	{
+		ofs.close();
+		return false;
+	}
+
+	ofs << "labs { ";
+	for (auto it = labs.begin(); it != labs.end(); it++)
+	{
+		ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
+	}
+	ofs << "} ";
+
+	ofs << "assignments { ";
+	for (auto it = assignments.begin(); it != assignments.end(); it++)
+	{
+		ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
+	}
+	ofs << "} ";
+
+	ofs << "projects { ";
+	for (auto it = projects.begin(); it != projects.end(); it++)
+	{
+		ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
+	}
+	ofs << "} ";
+
+	ofs << "exam { " << exam.first << ' ' << exam.second << " }";
+
+	ofs.close();
+
+	saved = true;
+	return true;
 }
 
 bool Gradebook::addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade)

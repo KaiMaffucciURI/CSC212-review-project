@@ -45,7 +45,7 @@ public:
 	bool loadStudent(const std::string& name);
 	/// Saves a student into csv files
 	/// Overwrites existing csv file for this student
-	void saveStudent(const std::string& name);
+	bool saveStudent();
 
 	//Returns true if successful, false if entry already exists
 	bool addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
