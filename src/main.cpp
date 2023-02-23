@@ -86,7 +86,9 @@ int main()
         } else if (command_args[0] == "modify") {
 
             // modify existing assignments
-            // two different branches for each possible args given to modify
+
+            // if the user typed "all" initially, we get new user input and start using that instead
+            // hopefully this works like that
             if (command_args[1] == "all") {
 
                 // print out all stuff and prompt for which one they'd like to modify
@@ -96,30 +98,25 @@ int main()
 
                 // parse user input
                 command_args.clear();
-                std::stringstream string_stream(line);
+                string_stream(line);
                 std::string part;
                 while (getline(string_stream, part, ' ')) {
                     command_args.push_back(part);
                 }
+            }
 
-                // call modifyEntry based on parsed user input
-
+            //  call modifyEntry, depending on type
+            if (command_args[1] == "labs") {
+                book.modifyEntry(labs, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
+            } else if (command_args[1] = "assignments") {
+                book.modifyEntry(assignments, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
+            } else if (command_args[1] = "projects") {
+                book.modifyEntry(projects, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
+            } else if (command_args[1] = "exams") {
+                book.modifyEntry(exams, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
             } else {
-
-                // just call modify normally, depending on type
-                if (command_args[1] == "labs") {
-                    book.modifyEntry(labs, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
-                } else if (command_args[1] = "assignments") {
-                    book.modifyEntry(assignments, command_args[2], std::atoi(command_args[3]),
-                                     std::atoi(command_args[4]));
-                } else if (command_args[1] = "projects") {
-                    book.modifyEntry(projects, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
-                } else if (command_args[1] = "exams") {
-                    book.modifyEntry(exams, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
-                } else {
-                    // bad argument(s)
-                    std::cout << "you suck" << std::endl; // we can put something else here
-                }
+                // bad argument(s)
+                std::cout << "you suck" << std::endl; // we can put something else here
             }
 
         } else if (command_args[0] == "delete") {
