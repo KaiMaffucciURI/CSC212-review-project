@@ -22,8 +22,8 @@ int main()
         std::cout << "load <name>\n\tload student <name> from file into memory" << std::endl;
         std::cout << "add <type> <grade> <total>\n\tadd an assignment of type <type> with grade <grade> out of <total>" << std::endl;
         std::cout << "view <type>\n\tdisplays all assignments of type <type>; if no <type> given, displays all assignments" << std::endl;
-        std::cout << "modify <index> <grade> <total>\n\tmodify grade at <index> with <grade> and <total>" << std::endl;
-        std::cout << "modify all\n\tlists all grades, then prompts user for an index, grade, and total the grade is out of" << std::endl;
+        std::cout << "modify <category> <name> <grade> <total>\n\tmodify grade at <index> with <grade> and <total>" << std::endl;
+        std::cout << "modify all\n\tlists all grades, then prompts user for a category, name, grade and total the grade is out of" << std::endl;
         std::cout << "delete <type> <name>\n\tdeletes all entries of type <type> under name <name>"
         std::cout << "exit\n\tclose the program" << std::endl;
 
@@ -103,23 +103,6 @@ int main()
                 }
 
                 // call modifyEntry based on parsed user input
-                // there's no modifyEntry call that calls based on an index like in the example diagram:
-                // what do you prefer me to do here?
-
-            } else if (command_args[0] == "delete") {
-
-                // delete entry
-                if (command_args[1] == "labs") {
-                    book.deleteEntry(labs, command_args[2]);
-                } else if (command_args[1] = "assignments") {
-                    book.deleteEntry(assignments, command_args[2]);
-                } else if (command_args[1] = "projects") {
-                    book.deleteEntry(projects, command_args[2]);
-                } else if (command_args[1] = "exams") {
-                    book.deleteEntry(exams, command_args[2]);
-                } else {
-                    // bad argument(s)
-                    std::cout << "you suck" << std::endl; // we can put something else here
 
             } else {
 
@@ -127,7 +110,8 @@ int main()
                 if (command_args[1] == "labs") {
                     book.modifyEntry(labs, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
                 } else if (command_args[1] = "assignments") {
-                    book.modifyEntry(assignments, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
+                    book.modifyEntry(assignments, command_args[2], std::atoi(command_args[3]),
+                                     std::atoi(command_args[4]));
                 } else if (command_args[1] = "projects") {
                     book.modifyEntry(projects, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
                 } else if (command_args[1] = "exams") {
@@ -136,6 +120,22 @@ int main()
                     // bad argument(s)
                     std::cout << "you suck" << std::endl; // we can put something else here
                 }
+            }
+
+        } else if (command_args[0] == "delete") {
+
+            // delete entry
+            if (command_args[1] == "labs") {
+                book.deleteEntry(labs, command_args[2]);
+            } else if (command_args[1] = "assignments") {
+                book.deleteEntry(assignments, command_args[2]);
+            } else if (command_args[1] = "projects") {
+                book.deleteEntry(projects, command_args[2]);
+            } else if (command_args[1] = "exams") {
+                book.deleteEntry(exams, command_args[2]);
+            } else {
+                // bad argument(s)
+                std::cout << "you suck" << std::endl; // we can put something else here
             }
 
         } else if (option == "exit" || option == "quit") {
