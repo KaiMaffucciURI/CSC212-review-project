@@ -9,14 +9,16 @@ Implement save and load
 Add user I/O
 */
 
+/*
+Notes:
+User I/O should be formatted to all lowercase (to prevent conflicts with names)
+*/
+
 int main()
 {
 	//User i/o loop should be performed here
 	Gradebook g;
-	g.createStudent("newStudent");
-	g.addEntry(Gradebook::EntryType::lab, "lab1", 10, 15);
-	g.modifyEntry(Gradebook::EntryType::lab, "lab1", 12, 15);
-	g.deleteEntry(Gradebook::EntryType::lab, "lab1");
-	
+	g.loadStudent("C:\\Projects\\Spring2023\\project-1\\data\\teststudent");
+
 	return 0;
 }

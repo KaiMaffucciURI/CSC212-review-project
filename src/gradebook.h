@@ -10,10 +10,15 @@ typedef std::pair<uint16_t, uint16_t> gradePair;
 typedef std::map<std::string, gradePair> gradeMap;
 
 /*
-Notes for Gradebook class
+Notes for Gradebook class:
 -Only the create, save, and load functions should perform file i/o operations
--Save should only be called when it is called by user or on exit
+-Save should only be called when it is called by user or when a command would otherwise destroy unsaved changes
 -All user i/o should occur in main rather than within the class
+
+.grades File format notes:
+-Categories noted by the name of the category followed by opening and closing brackets
+-Individual entries consist of a name, grade, and max grade separated by whitespace
+-Not case sensitive, not whitespace sensitive
 */
 
 class Gradebook
@@ -59,6 +64,8 @@ public:
 	/// flag 1 Prints all categories
 	/// flag 2 Prints only the course grade
 	void printCourse(uint8_t flags = 0);
+
+	bool isSaved() { return saved; }
 
 private:
 	void clearData();
