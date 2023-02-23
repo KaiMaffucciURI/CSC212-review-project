@@ -7,7 +7,7 @@
 int main()
 {
 
-    Gradebook book = new Gradebook();
+    Gradebook book;
 
     // plan: loop which prompts the user with a list of options
     // which option they pick determines which
