@@ -60,13 +60,13 @@ int main()
 
             // add new assignment
             if (command_args[1] == "labs") {
-                book.addEntry(lab, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
-            } else if (command_args[1] = "assignments") {
-                book.addEntry(assignments, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
-            } else if (command_args[1] = "projects") {
-                book.addEntry(projects, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
-            } else if (command_args[1] = "exams") {
-                book.addEntry(exams, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+                book.addEntry(Gradebook::EntryType::lab, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+            } else if (command_args[1] == "assignments") {
+                book.addEntry(Gradebook::EntryType::assignment, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+            } else if (command_args[1] == "projects") {
+                book.addEntry(Gradebook::EntryType::project, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+            } else if (command_args[1] == "exams") {
+                book.addEntry(Gradebook::EntryType::exam, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else {
                 // bad argument(s)
                 std::cout << "you suck" << std::endl; // we can put something else here
@@ -77,14 +77,14 @@ int main()
             // view all assignments of type command_args[1]
             if (command_args.size() == 2) {
                 if (command_args[1] == "labs") {
-                    book.printCategory(lab);
-                } else if (command_args[1] = "assignments") {
-                    book.printCategory(assignments);
-                } else if (command_args[1] = "projects") {
-                    book.printCategory(projects);
-                } else if (command_args[1] = "exams") {
-                    book.printCategory(exams);
-                } else if (command_args[1] = "all") {
+                    book.printCategory(Gradebook::EntryType::lab);
+                } else if (command_args[1] == "assignments") {
+                    book.printCategory(Gradebook::EntryType::assignment);
+                } else if (command_args[1] == "projects") {
+                    book.printCategory(Gradebook::EntryType::project);
+                } else if (command_args[1] == "exams") {
+                    book.printCategory(Gradebook::EntryType::exam);
+                } else if (command_args[1] == "all") {
                     // if it's all, print all grades
                     book.printCourse(0);
                 } else {
@@ -94,13 +94,13 @@ int main()
             // if we have 3 arguments, that means a name was given as well
             } else if (command_args.size() >= 3) {
                 if (command_args[1] == "labs") {
-                    book.printSingle(lab, command_args[2]);
-                } else if (command_args[1] = "assignments") {
-                    book.printSingle(assignments, command_args[2]);
-                } else if (command_args[1] = "projects") {
-                    book.printSingle(projects, command_args[2]);
-                } else if (command_args[1] = "exams") {
-                    book.printSingle(exams, command_args[2]);
+                    book.printSingle(Gradebook::EntryType::lab, command_args[2]);
+                } else if (command_args[1] == "assignments") {
+                    book.printSingle(Gradebook::EntryType::assignment, command_args[2]);
+                } else if (command_args[1] == "projects") {
+                    book.printSingle(Gradebook::EntryType::project, command_args[2]);
+                } else if (command_args[1] == "exams") {
+                    book.printSingle(Gradebook::EntryType::exam, command_args[2]);
                 } else {
                     // bad input
                     std::cout << "you suck" << std::endl;
@@ -131,13 +131,13 @@ int main()
 
             //  call modifyEntry, depending on type
             if (command_args[1] == "labs") {
-                book.modifyEntry(lab, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+                book.modifyEntry(Gradebook::EntryType::lab, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else if (command_args[1] == "assignments") {
-                book.modifyEntry(assignments, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+                book.modifyEntry(Gradebook::EntryType::assignment, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else if (command_args[1] == "projects") {
-                book.modifyEntry(projects, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+                book.modifyEntry(Gradebook::EntryType::project, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else if (command_args[1] == "exams") {
-                book.modifyEntry(exams, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+                book.modifyEntry(Gradebook::EntryType::exam, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else {
                 // bad argument(s)
                 std::cout << "you suck" << std::endl; // we can put something else here
@@ -147,13 +147,13 @@ int main()
 
             // delete entry
             if (command_args[1] == "labs") {
-                book.deleteEntry(lab, command_args[2]);
+                book.deleteEntry(Gradebook::EntryType::lab, command_args[2]);
             } else if (command_args[1] == "assignments") {
-                book.deleteEntry(assignments, command_args[2]);
+                book.deleteEntry(Gradebook::EntryType::assignment, command_args[2]);
             } else if (command_args[1] == "projects") {
-                book.deleteEntry(projects, command_args[2]);
+                book.deleteEntry(Gradebook::EntryType::project, command_args[2]);
             } else if (command_args[1] == "exams") {
-                book.deleteEntry(exams, command_args[2]);
+                book.deleteEntry(Gradebook::EntryType::exam, command_args[2]);
             } else {
                 // bad argument(s)
                 std::cout << "you suck" << std::endl; // we can put something else here
