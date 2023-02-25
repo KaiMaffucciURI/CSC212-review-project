@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "gradebook.h"
+#include <vector>
+#include <sstream>
 
 // might be nice to make a helper function which converts a string to a type/typedef somehow
 
@@ -28,11 +30,12 @@ int main()
                      "\n\tif <type> is 'all', then it displays every assignment" << std::endl;
         std::cout << "modify <category> <name> <grade> <total>\n\tmodify grade at <index> with <grade> and <total>" << std::endl;
         std::cout << "modify all\n\tlists all grades, then prompts user for a category, name, grade and total the grade is out of" << std::endl;
-        std::cout << "delete <type> <name>\n\tdeletes all entries of type <type> under name <name>"
+        std::cout << "delete <type> <name>\n\tdeletes all entries of type <type> under name <name>";
         std::cout << "exit\n\tclose the program" << std::endl;
 
         // get user's choice and parse it
         std::cout << "Which option would you like to choose? " << std::endl;
+        std::string line;
         std::cin >> line; // put user input into line
         std::vector<std::string> command_args; // vector of strings, will be the components of the user's input
 
@@ -48,33 +51,33 @@ int main()
             // create new student
             book.createStudent(command_args[1]);
 
-        } else if (command_args[0] == "load") {
+        } else if (command_args[0] == "load" && command_args.size() >= 2) {
 
             // load student into memory from file as current working student
             book.loadStudent(command_args[1]);
 
-        } else if (command_args[0] == "add") {
+        } else if (command_args[0] == "add" && command_args.size() >= 5) {
 
             // add new assignment
             if (command_args[1] == "labs") {
-                book.addEntry(labs, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                book.addEntry(lab, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else if (command_args[1] = "assignments") {
-                book.addEntry(assignments, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                book.addEntry(assignments, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else if (command_args[1] = "projects") {
-                book.addEntry(projects, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                book.addEntry(projects, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else if (command_args[1] = "exams") {
-                book.addEntry(exams, std::atoi(command_args[2]), std::atoi(command_args[3]));
+                book.addEntry(exams, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else {
                 // bad argument(s)
                 std::cout << "you suck" << std::endl; // we can put something else here
             }
 
-        } else if (command_args[0] == "view") {
+        } else if (command_args[0] == "view" && command_args.size() >= 2) {
 
             // view all assignments of type command_args[1]
             if (command_args.size() == 2) {
                 if (command_args[1] == "labs") {
-                    book.printCategory(labs);
+                    book.printCategory(lab);
                 } else if (command_args[1] = "assignments") {
                     book.printCategory(assignments);
                 } else if (command_args[1] = "projects") {
@@ -89,22 +92,22 @@ int main()
                     std::cout << "you suck" << std::endl;
                 }
             // if we have 3 arguments, that means a name was given as well
-            } else if (command_args.size() == 3) {
+            } else if (command_args.size() >= 3) {
                 if (command_args[1] == "labs") {
-                    book.printCategory(labs, command_args[2]);
+                    book.printSingle(lab, command_args[2]);
                 } else if (command_args[1] = "assignments") {
-                    book.printCategory(assignments, command_args[2]);
+                    book.printSingle(assignments, command_args[2]);
                 } else if (command_args[1] = "projects") {
-                    book.printCategory(projects, command_args[2]);
+                    book.printSingle(projects, command_args[2]);
                 } else if (command_args[1] = "exams") {
-                    book.printCategory(exams, command_args[2]);
+                    book.printSingle(exams, command_args[2]);
                 } else {
                     // bad input
                     std::cout << "you suck" << std::endl;
                 }
             }
 
-        } else if (command_args[0] == "modify") {
+        } else if (command_args[0] == "modify" && command_args.size() >= 2) {
 
             // modify existing assignments
 
@@ -119,7 +122,7 @@ int main()
 
                 // parse user input
                 command_args.clear();
-                string_stream(line);
+                std::stringstream string_stream(line);
                 std::string part;
                 while (getline(string_stream, part, ' ')) {
                     command_args.push_back(part);
@@ -128,13 +131,13 @@ int main()
 
             //  call modifyEntry, depending on type
             if (command_args[1] == "labs") {
-                book.modifyEntry(labs, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
-            } else if (command_args[1] = "assignments") {
-                book.modifyEntry(assignments, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
-            } else if (command_args[1] = "projects") {
-                book.modifyEntry(projects, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
-            } else if (command_args[1] = "exams") {
-                book.modifyEntry(exams, command_args[2], std::atoi(command_args[3]), std::atoi(command_args[4]));
+                book.modifyEntry(lab, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+            } else if (command_args[1] == "assignments") {
+                book.modifyEntry(assignments, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+            } else if (command_args[1] == "projects") {
+                book.modifyEntry(projects, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
+            } else if (command_args[1] == "exams") {
+                book.modifyEntry(exams, command_args[2], stoi(command_args[3]), stoi(command_args[4]));
             } else {
                 // bad argument(s)
                 std::cout << "you suck" << std::endl; // we can put something else here
@@ -144,12 +147,12 @@ int main()
 
             // delete entry
             if (command_args[1] == "labs") {
-                book.deleteEntry(labs, command_args[2]);
-            } else if (command_args[1] = "assignments") {
+                book.deleteEntry(lab, command_args[2]);
+            } else if (command_args[1] == "assignments") {
                 book.deleteEntry(assignments, command_args[2]);
-            } else if (command_args[1] = "projects") {
+            } else if (command_args[1] == "projects") {
                 book.deleteEntry(projects, command_args[2]);
-            } else if (command_args[1] = "exams") {
+            } else if (command_args[1] == "exams") {
                 book.deleteEntry(exams, command_args[2]);
             } else {
                 // bad argument(s)
@@ -158,7 +161,7 @@ int main()
 
         } else if (command_args[0] == "exit" || command_args[0] == "quit") {
 
-            std::cout << "Exiting the program..."
+            std::cout << "Exiting the program..." <<std::endl;
             // we can put a cin/are you sure prompt right here if we want it to wait for the user before actually closing
             running = false;
 
