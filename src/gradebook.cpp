@@ -8,7 +8,7 @@
 
 bool Gradebook::createStudent(const std::string& name)
 {
-	std::ifstream test(name + ".grades");
+	std::ifstream test("data\\" + name + ".grades");
 	if (test.good())
 	{
 		test.close();
@@ -336,7 +336,7 @@ void Gradebook::printSingle(EntryType type, const std::string& name)
 	return;
 }
 
-void Gradebook::printCategory(EntryType type)
+void Gradebook::printCategory(EntryType type, uint8_t flags)
 {
 	return;
 }

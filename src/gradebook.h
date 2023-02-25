@@ -30,7 +30,8 @@ public:
 		lab,
 		assignment,
 		project,
-		exam
+		exam,
+		error
 	};
 
 	Gradebook() {}
@@ -58,14 +59,17 @@ public:
 	/// Prints a simple error message if entry not found
 	void printSingle(EntryType type, const std::string& name);
 	/// Prints a category
-	void printCategory(EntryType type);
+	/// flag 0 prints all
+	/// flag 1 prints only the category
+	void printCategory(EntryType type, uint8_t flags = 0);
 	/// Prints the course grade
-	/// flag 0 Prints all categories and assignments
+	/// flag 0 Prints all categories and entries
 	/// flag 1 Prints all categories
 	/// flag 2 Prints only the course grade
 	void printCourse(uint8_t flags = 0);
 
 	bool isSaved() { return saved; }
+	std::string getStudent() { return currentStudent; }
 
 private:
 	void clearData();
