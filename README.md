@@ -2,18 +2,16 @@
 Our task was to create a simple, clean, functional and interactive gradebook program. The basic idea is that the user tells the program what it wants to do with academic records, and the program performs the corresponding action. 
 
 # Compiling the program
-For the safest results, compile with C++ 11: other versions of C++ may work, but they are not tested. The following line generates the executable, which can be run with ```./gradebook```:
+For safest results, compile with C++ 11: other versions of C++ may work, but they have not been tested. The following line generates the executable, which can be run with ```./gradebook```:
 
 ```g++ -o gradebook main.cpp gradebook.cpp -std=c++11```
 
 # User commands
- Here are all of the different commands (with their parameters) the user can input into the program, and their respective function/method calls. 
- All commands display an error of some kind if given improper arguments. 
+ Here are all of the different commands (with their parameters) the user can input into the program. All commands display an error of some kind if given improper arguments. 
  
 ```help [command]```
 + no ```[command]``` given: gives a general overview of each command
 + ```[command]``` given: gives an overview of the command [command]
-
 
 ```new [student]```
 + creates a new student with name ```[student]```
@@ -56,8 +54,8 @@ There are a few optional flags that can be used with the *print* command as well
 + ```-o``` *prints* all assignments **without** their categories (**only** works with ```print all``` variant)
 + ```-c``` *prints* **categories** but **not** entries (**does not** work with ```print [category] [name]``` variant)
 
-``exit``
-+ prompts the user if they have unsaved progress, closes program
+```exit```
++ if the user has unfinished progress, they will be given a prompt, then/otherwise closes program
 
 # Classes & Methods (for developers' eyes)
 
