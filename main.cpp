@@ -265,7 +265,21 @@ int main()
                 continue;
             }
 
-            if (!book.addEntry(t, tokens.at(2), std::stoi(tokens.at(3)), std::stoi(tokens.at(4))))
+            uint16_t grade;
+            uint16_t maxGrade;
+
+            try
+            {
+                grade = std::stoi(tokens.at(3));
+                maxGrade = std::stoi(tokens.at(4));
+            }
+            catch (std::invalid_argument const& e)
+            {
+                std::cout << e.what() << ", usage - add [cat] [name] [grade] [max]" << std::endl;
+                continue;
+            }
+
+            if (!book.addEntry(t, tokens.at(2), grade, maxGrade))
             {
                 std::cout << "Entry '" << tokens.at(2) << "' already exists" << std::endl;
             }
@@ -294,7 +308,21 @@ int main()
                 continue;
             }
 
-            if (!book.modifyEntry(t, tokens.at(2), std::stoi(tokens.at(3)), std::stoi(tokens.at(4))))
+            uint16_t grade;
+            uint16_t maxGrade;
+
+            try
+            {
+                grade = std::stoi(tokens.at(3));
+                maxGrade = std::stoi(tokens.at(4));
+            }
+            catch (std::invalid_argument const& e)
+            {
+                std::cout << e.what() << ", usage - modify [cat] [name] [grade] [max]" << std::endl;
+                continue;
+            }
+
+            if (!book.modifyEntry(t, tokens.at(2), grade, maxGrade))
             {
                 std::cout << "Entry '" << tokens.at(2) << "' does not exist" << std::endl;
             }
@@ -389,10 +417,15 @@ int main()
                     continue;
                 }
 
+                std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
+
                 continue;
             }
 
-            book.printSingle(t, tokens.at(2));
+            if (!book.printSingle(t, tokens.at(2)))
+            {
+                std::cout << "Entry '" << tokens.at(2) << "' does not exist" << std::endl;
+            }
 
             continue;
         }

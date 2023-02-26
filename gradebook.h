@@ -14,6 +14,7 @@ Notes for Gradebook class:
 -Only the create, save, and load functions should perform file i/o operations
 -Save should only be called when it is called by user or when a command would otherwise destroy unsaved changes
 -All user i/o should occur in main rather than within the class
+
 .grades File format notes:
 -Categories noted by the name of the category followed by opening and closing brackets
 -Individual entries consist of a name, grade, and max grade separated by whitespace
@@ -56,11 +57,11 @@ public:
 
     /// Prints a single entry from a category
     /// Prints a simple error message if entry not found
-    void printSingle(EntryType type, const std::string& name);
+    bool printSingle(EntryType type, const std::string& name);
     /// Prints a category
     /// flag 0 prints all
     /// flag 1 prints only the category
-    void printCategory(EntryType type, uint8_t flags = 0);
+    bool printCategory(EntryType type, uint8_t flags = 0);
     /// Prints the course grade
     /// flag 0 Prints all categories and entries
     /// flag 1 Prints all categories
@@ -72,6 +73,8 @@ public:
 
 private:
     void clearData();
+
+    std::string entryToString(EntryType type);
 
     gradeMap labs;
     gradeMap assignments;
