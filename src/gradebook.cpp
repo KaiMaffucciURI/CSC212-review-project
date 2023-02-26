@@ -5,6 +5,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <stdexcept>
 
 bool Gradebook::createStudent(const std::string& name)
 {
@@ -241,7 +242,7 @@ bool Gradebook::addEntry(EntryType type, const std::string& name, uint16_t grade
 		saved = false;
 		return true;
 	default:
-		//Will throw error instead
+		throw std::invalid_argument("Recieved invalid category");
 		return false;
 	}
 
@@ -278,7 +279,7 @@ bool Gradebook::modifyEntry(EntryType type, const std::string& name, uint16_t gr
 		saved = false;
 		return true;
 	default:
-		//Will throw error instead
+		throw std::invalid_argument("Recieved invalid category");
 		return false;
 	}
 
@@ -315,7 +316,7 @@ bool Gradebook::deleteEntry(EntryType type, const std::string& name)
 		saved = false;
 		return true;
 	default:
-		//Will throw error instead
+		throw std::invalid_argument("Recieved invalid category");
 		return false;
 	}
 

@@ -274,8 +274,8 @@ int main()
                 maxGrade = std::stoi(tokens.at(4));
             }
             catch (std::invalid_argument e)
-            {
-                std::cout << "Invalid argument, usage - add [cat] [name] [grade] [max]" << std::endl;
+            { 
+                std::cout << e.what() << ", usage - add [cat] [name] [grade] [max]" << std::endl;
                 continue;
             }
 
@@ -317,8 +317,8 @@ int main()
                 maxGrade = std::stoi(tokens.at(4));
             }
             catch (std::invalid_argument e)
-            {
-                std::cout << "Invalid argument, usage - modify [cat] [name] [grade] [max]" << std::endl;
+            { 
+                std::cout << e.what() << ", usage - modify [cat] [name] [grade] [max]" << std::endl;
                 continue;
             }
 
