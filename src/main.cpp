@@ -265,7 +265,21 @@ int main()
                 continue;
             }
 
-            if (!book.addEntry(t, tokens.at(2), std::stoi(tokens.at(3)), std::stoi(tokens.at(4))))
+            uint16_t grade;
+            uint16_t maxGrade;
+
+            try
+            {
+                grade = std::stoi(tokens.at(3));
+                maxGrade = std::stoi(tokens.at(4));
+            }
+            catch (std::invalid_argument e)
+            {
+                std::cout << "Invalid argument, usage - add [cat] [name] [grade] [max]" << std::endl;
+                continue;
+            }
+
+            if (!book.addEntry(t, tokens.at(2), grade, std::stoi(tokens.at(4))))
             {
                 std::cout << "Entry '" << tokens.at(2) << "' already exists" << std::endl;
             }
@@ -291,6 +305,20 @@ int main()
             if (t == Gradebook::EntryType::error)
             {
                 std::cout << "Invalid category '" << tokens.at(1) << "'" << std::endl;
+                continue;
+            }
+
+            uint16_t grade;
+            uint16_t maxGrade;
+
+            try
+            {
+                grade = std::stoi(tokens.at(3));
+                maxGrade = std::stoi(tokens.at(4));
+            }
+            catch (std::invalid_argument e)
+            {
+                std::cout << "Invalid argument, usage - modify [cat] [name] [grade] [max]" << std::endl;
                 continue;
             }
 
