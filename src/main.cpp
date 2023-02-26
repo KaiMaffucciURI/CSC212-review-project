@@ -416,6 +416,8 @@ int main()
                     book.printCategory(t, 1);
                     continue;
                 }
+		    
+		std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
 
                 continue;
             }
