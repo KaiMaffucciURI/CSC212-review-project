@@ -417,12 +417,15 @@ int main()
                     continue;
                 }
 		    
-		std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
+		        std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
 
                 continue;
             }
 
-            book.printSingle(t, tokens.at(2));
+            if (!book.printSingle(t, tokens.at(2)))
+            {
+                std::cout << "Entry '" << tokens.at(2) << "' does not exist" << std::endl;
+            }
 
             continue;
         }
