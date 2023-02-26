@@ -44,10 +44,15 @@ For safest results, compile with C++ 11: other versions of C++ may work, but the
 There are a few variants of the ```print``` command:
 
 ```print all [flags]```
- + *prints* all assignments
+
++ *prints* all assignments
+
 ```print [category] [flags]```
+
 + *prints* all assignments of **type** ```[category]```
+
 ```print [category] [name]```
+
 + *prints* a **specific** assignment of **type** ```[category]``` and **name** ```[name]```
 
 There are a few optional flags that can be used with the *print* command as well:
