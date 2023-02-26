@@ -71,7 +71,7 @@ There are a few variants of the ```print``` command:
 + *prints* a **specific** assignment of **type** ```[category]``` and **name** ```[name]```
 
 There are a few optional flags that can be used with the *print* command as well:
-+ ```-o``` *prints* all assignments **without** their categories (**only** works with ```print all``` variant)
++ ```-o``` *prints* course grade but **not** categories or entries (**only** works with ```print all``` variant)
 + ```-c``` *prints* **categories** but **not** entries (**does not** work with ```print [category] [name]``` variant)
 
 ```exit```
