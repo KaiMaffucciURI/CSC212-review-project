@@ -21,7 +21,7 @@ Make sure to include any ```.grades```files you would like to modify in the same
 
 This is simply the way that data is stored in each student's file. The program is written in such a way that the user should never have to go "under the hood" in these files, as any modification of them is entirely possible with the program. 
 
-# User commands
+## User commands
 Here are all of the different commands (with their parameters) the user can input into the program. All commands display an error of some kind if given an improper number of arguments. 
  
 ```help [command]```
@@ -76,7 +76,3 @@ There are a few optional flags that can be used with the *print* command as well
 
 ```exit```
 + if the user has unfinished progress, they will be given a prompt, then/otherwise closes program
-
-# Classes & Methods (for developers' eyes)
-
-If you want to take our code and develop it yourself, this documentation will likely be useful. 
