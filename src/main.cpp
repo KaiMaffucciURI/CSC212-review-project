@@ -273,13 +273,13 @@ int main()
                 grade = std::stoi(tokens.at(3));
                 maxGrade = std::stoi(tokens.at(4));
             }
-            catch (std::invalid_argument e)
+            catch (std::invalid_argument const& e)
             { 
                 std::cout << e.what() << ", usage - add [cat] [name] [grade] [max]" << std::endl;
                 continue;
             }
 
-            if (!book.addEntry(t, tokens.at(2), grade, std::stoi(tokens.at(4))))
+            if (!book.addEntry(t, tokens.at(2), grade, maxGrade))
             {
                 std::cout << "Entry '" << tokens.at(2) << "' already exists" << std::endl;
             }
@@ -316,13 +316,13 @@ int main()
                 grade = std::stoi(tokens.at(3));
                 maxGrade = std::stoi(tokens.at(4));
             }
-            catch (std::invalid_argument e)
+            catch (std::invalid_argument const& e)
             { 
                 std::cout << e.what() << ", usage - modify [cat] [name] [grade] [max]" << std::endl;
                 continue;
             }
 
-            if (!book.modifyEntry(t, tokens.at(2), std::stoi(tokens.at(3)), std::stoi(tokens.at(4))))
+            if (!book.modifyEntry(t, tokens.at(2), grade, maxGrade))
             {
                 std::cout << "Entry '" << tokens.at(2) << "' does not exist" << std::endl;
             }
