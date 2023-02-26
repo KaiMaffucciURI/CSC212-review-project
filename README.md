@@ -19,7 +19,7 @@ Make sure to include any ```.grades```files you would like to modify in the same
 
 ## What the hecks is a .grades file anyways?
 
-This is simply the way that data is stored in each student's file. The program is written in such a way that the user should never have to go "under the hood" in these files, as any modification of them is entirely possible with the program. 
+This is simply the way that data is stored in each student's file. The program is written in such a way that the user should never have to go "under the hood" in these files, as any changes are meant to be made with the program. 
 
 ## User commands
 Here are all of the different commands (with their parameters) the user can input into the program. All commands display an error of some kind if given an improper number of arguments. 
