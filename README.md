@@ -1,13 +1,28 @@
-# Introduction
+# Summary
 Our task was to create a simple, clean, functional and interactive gradebook program. The basic idea is that the user tells the program what it wants to do with academic records, and the program performs the corresponding action. 
 
-# Compiling the program
-For safest results, compile with C++ 11: other versions of C++ may work, but they have not been tested. The following line generates the executable, which can be run with ```./gradebook```:
+# Planning
+This was the initial proposal for the control flow of the program: 
+![sydney-flow-chart](https://user-images.githubusercontent.com/123519150/221390111-4a7e2456-e55a-4184-b0ac-c9dad6238da0.png)
+
+Then a slightly updated version:
+![kai-review-project-flowchart](https://user-images.githubusercontent.com/123519150/221390061-53dff300-5014-4282-9292-fddafb454ee4.jpeg)
+
+After this, it was a matter of implimenting it, and writing the functions needed to 
+
+# Compiling & running the program
+For safest results, compile with C++ 11: other versions of C++ may work, but they have not been tested. Navigate to where the source code is stored: the following line generates the executable, which can be run with ```./gradebook```:
 
 ```g++ -o gradebook main.cpp gradebook.cpp -std=c++11```
 
+Make sure to include any ```.grades```files you would like to modify in the same directory so the program can access it. In addition, any additional ```.grades``` files will be stored where the program is being run. 
+
+## What the hecks is a .grades file anyways?
+
+This is simply the way that data is stored in each student's file. The program is written in such a way that the user should never have to go "under the hood" in these files, as any modification of them is entirely possible with the program. 
+
 # User commands
- Here are all of the different commands (with their parameters) the user can input into the program. All commands display an error of some kind if given improper arguments. 
+Here are all of the different commands (with their parameters) the user can input into the program. All commands display an error of some kind if given an improper number of arguments. 
  
 ```help [command]```
 + no ```[command]``` given: gives a general overview of each command
@@ -65,13 +80,3 @@ There are a few optional flags that can be used with the *print* command as well
 # Classes & Methods (for developers' eyes)
 
 If you want to take our code and develop it yourself, this documentation will likely be useful. 
-
-## Gradebook
-
-### Data members
-
-### Methods
-
-
- 
- 
