@@ -27,8 +27,13 @@ For the safest results, compile with C++ 11: other versions of C++ may work, but
 
 ```add [category] [name] [grade] [max]```
 + adds a new entry based on arguments, where: 
-+ + ```[category]``` is the type of assignment it is
-+ +
+  + ```[category]``` is the type of assignment it is
+  + ```[name]``` is the name of the assignment
+  + ```[grade]``` is the number of points earned on the assignment
+  + ```[max]``` is the maximum number of potential points that can be achieved on the assignment
+
+
+
 # CLASSES & METHODS
 
 ## Gradebook
