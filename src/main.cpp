@@ -63,7 +63,7 @@ int main()
         }
 
         std::transform(tokens.at(0).begin(), tokens.at(0).end(), tokens.at(0).begin(),
-		[](char a) { return std::tolower(a); });
+		        [](char a) { return std::tolower(a); });
 
         if (tokens.at(0) == "exit")
         {
@@ -417,8 +417,7 @@ int main()
                     continue;
                 }
 		    
-		        std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
-
+		            std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
                 continue;
             }
 

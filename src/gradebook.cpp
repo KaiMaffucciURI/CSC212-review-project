@@ -29,192 +29,192 @@ bool Gradebook::createStudent(const std::string& name)
 
 bool Gradebook::loadStudent(const std::string& name)
 {
-	std::ifstream ifs("data\\" + name + ".grades");
-	if (!ifs.good())
-	{
-		ifs.close();
-		return false;
-	}
+    std::ifstream ifs("data\\" + name + ".grades");
+    if (!ifs.good())
+    {
+        ifs.close();
+        return false;
+    }
 
-	std::stringstream ss;
-	ss << ifs.rdbuf();
-	ifs.close();
+    std::stringstream ss;
+    ss << ifs.rdbuf();
+    ifs.close();
 
-	std::string buffer = ss.str();
-	ss.clear();
+    std::string buffer = ss.str();
+    ss.clear();
 
-	//Boy I do love lambda expressions
+    //Boy I do love lambda expressions
 
-	std::string formattedBuffer;
-	//Remove duplicate whitespaces from buffer and insert into formattedBuffer
-	std::unique_copy(buffer.begin(), buffer.end(), std::back_insert_iterator<std::string>(formattedBuffer),
-		[](char a, char b) { return std::isspace(a) && std::isspace(b); });
+    std::string formattedBuffer;
+    //Remove duplicate whitespaces from buffer and insert into formattedBuffer
+    std::unique_copy(buffer.begin(), buffer.end(), std::back_insert_iterator<std::string>(formattedBuffer),
+                     [](char a, char b) { return std::isspace(a) && std::isspace(b); });
 
-	//Replace whitespace characters with a regular space
-	std::replace_if(formattedBuffer.begin(), formattedBuffer.end(),
-		[](char a) { return std::isspace(a); }, ' ');
+    //Replace whitespace characters with a regular space
+    std::replace_if(formattedBuffer.begin(), formattedBuffer.end(),
+                    [](char a) { return std::isspace(a); }, ' ');
 
-	//Make the whole string lowercase
-	std::transform(formattedBuffer.begin(), formattedBuffer.end(), formattedBuffer.begin(),
-		[](char a) { return std::tolower(a); });
+    //Make the whole string lowercase
+    std::transform(formattedBuffer.begin(), formattedBuffer.end(), formattedBuffer.begin(),
+                   [](char a) { return std::tolower(a); });
 
-	ss.str(formattedBuffer);
-	std::vector<std::string> tokens;
-	std::string token;
+    ss.str(formattedBuffer);
+    std::vector<std::string> tokens;
+    std::string token;
 
-	while (ss >> token)
-	{
-		tokens.push_back(token);
-	}
+    while (ss >> token)
+    {
+        tokens.push_back(token);
+    }
 
-	if (tokens.size() == 0)
-	{
-		return false;
-	}
+    if (tokens.size() == 0)
+    {
+        return false;
+    }
 
-	clearData();
+    clearData();
 
-	std::vector<std::string>::iterator labStart = std::find(tokens.begin(), tokens.end(), std::string("labs"));
-	std::vector<std::string>::iterator assignmentStart = std::find(tokens.begin(), tokens.end(), std::string("assignments"));
-	std::vector<std::string>::iterator projectStart = std::find(tokens.begin(), tokens.end(), std::string("projects"));
-	std::vector<std::string>::iterator examStart = std::find(tokens.begin(), tokens.end(), std::string("exam"));
+    std::vector<std::string>::iterator labStart = std::find(tokens.begin(), tokens.end(), std::string("labs"));
+    std::vector<std::string>::iterator assignmentStart = std::find(tokens.begin(), tokens.end(), std::string("assignments"));
+    std::vector<std::string>::iterator projectStart = std::find(tokens.begin(), tokens.end(), std::string("projects"));
+    std::vector<std::string>::iterator examStart = std::find(tokens.begin(), tokens.end(), std::string("exam"));
 
-	std::vector<std::string>::iterator openSection, closeSection;
+    std::vector<std::string>::iterator openSection, closeSection;
 
-	if (labStart != tokens.end())
-	{
-		openSection = std::find(labStart, assignmentStart, std::string("{"));
-		closeSection = std::find(labStart, assignmentStart, std::string("}"));
+    if (labStart != tokens.end())
+    {
+        openSection = std::find(labStart, assignmentStart, std::string("{"));
+        closeSection = std::find(labStart, assignmentStart, std::string("}"));
 
-		if (openSection == assignmentStart || closeSection == assignmentStart)
-		{
-			return false;
-		}
+        if (openSection == assignmentStart || closeSection == assignmentStart)
+        {
+            return false;
+        }
 
-		//Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
-		if ((std::distance(openSection, closeSection) - 1) % 3)
-		{
-			return false;
-		}
+        //Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
+        if ((std::distance(openSection, closeSection) - 1) % 3)
+        {
+            return false;
+        }
 
-		for (auto it = openSection + 1; it != closeSection; it += 3)
-		{
-			uint16_t grade = std::stoi(*(it + 1));
-			uint16_t maxGrade = std::stoi(*(it + 2));
-			labs.insert(std::pair<std::string, gradePair>(*it, gradePair(grade, maxGrade)));
-		}
-	}
+        for (auto it = openSection + 1; it != closeSection; it += 3)
+        {
+            uint16_t grade = std::stoi(*(it + 1));
+            uint16_t maxGrade = std::stoi(*(it + 2));
+            labs.insert(std::pair<std::string, gradePair>(*it, gradePair(grade, maxGrade)));
+        }
+    }
 
-	if (assignmentStart != tokens.end())
-	{
-		openSection = std::find(assignmentStart, projectStart, std::string("{"));
-		closeSection = std::find(assignmentStart, projectStart, std::string("}"));
+    if (assignmentStart != tokens.end())
+    {
+        openSection = std::find(assignmentStart, projectStart, std::string("{"));
+        closeSection = std::find(assignmentStart, projectStart, std::string("}"));
 
-		if (openSection == projectStart || closeSection == projectStart)
-		{
-			return false;
-		}
+        if (openSection == projectStart || closeSection == projectStart)
+        {
+            return false;
+        }
 
-		//Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
-		if ((std::distance(openSection, closeSection) - 1) % 3)
-		{
-			return false;
-		}
+        //Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
+        if ((std::distance(openSection, closeSection) - 1) % 3)
+        {
+            return false;
+        }
 
-		for (auto it = openSection + 1; it != closeSection; it += 3)
-		{
-			uint16_t grade = std::stoi(*(it + 1));
-			uint16_t maxGrade = std::stoi(*(it + 2));
-			assignments.insert(std::pair<std::string, gradePair>(*it, gradePair(grade, maxGrade)));
-		}
-	}
+        for (auto it = openSection + 1; it != closeSection; it += 3)
+        {
+            uint16_t grade = std::stoi(*(it + 1));
+            uint16_t maxGrade = std::stoi(*(it + 2));
+            assignments.insert(std::pair<std::string, gradePair>(*it, gradePair(grade, maxGrade)));
+        }
+    }
 
-	if (projectStart != tokens.end())
-	{
-		openSection = std::find(projectStart, examStart, std::string("{"));
-		closeSection = std::find(projectStart, examStart, std::string("}"));
+    if (projectStart != tokens.end())
+    {
+        openSection = std::find(projectStart, examStart, std::string("{"));
+        closeSection = std::find(projectStart, examStart, std::string("}"));
 
-		if (openSection == examStart || closeSection == examStart)
-		{
-			return false;
-		}
+        if (openSection == examStart || closeSection == examStart)
+        {
+            return false;
+        }
 
-		//Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
-		if ((std::distance(openSection, closeSection) - 1) % 3)
-		{
-			return false;
-		}
+        //Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
+        if ((std::distance(openSection, closeSection) - 1) % 3)
+        {
+            return false;
+        }
 
-		for (auto it = openSection + 1; it != closeSection; it += 3)
-		{
-			uint16_t grade = std::stoi(*(it + 1));
-			uint16_t maxGrade = std::stoi(*(it + 2));
-			projects.insert(std::pair<std::string, gradePair>(*it, gradePair(grade, maxGrade)));
-		}
-	}
+        for (auto it = openSection + 1; it != closeSection; it += 3)
+        {
+            uint16_t grade = std::stoi(*(it + 1));
+            uint16_t maxGrade = std::stoi(*(it + 2));
+            projects.insert(std::pair<std::string, gradePair>(*it, gradePair(grade, maxGrade)));
+        }
+    }
 
-	if (examStart != tokens.end())
-	{
-		openSection = std::find(examStart, tokens.end(), std::string("{"));
-		closeSection = std::find(examStart, tokens.end(), std::string("}"));
+    if (examStart != tokens.end())
+    {
+        openSection = std::find(examStart, tokens.end(), std::string("{"));
+        closeSection = std::find(examStart, tokens.end(), std::string("}"));
 
-		if (openSection == tokens.end() || closeSection == tokens.end())
-		{
-			return false;
-		}
+        if (openSection == tokens.end() || closeSection == tokens.end())
+        {
+            return false;
+        }
 
-		//Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
-		if ((std::distance(openSection, closeSection) - 1) % 3)
-		{
-			return false;
-		}
+        //Number of increments from opening { to closing }, should be some multiple of 3 (name, grade, max)
+        if ((std::distance(openSection, closeSection) - 1) % 3)
+        {
+            return false;
+        }
 
-		uint16_t grade = std::stoi(*(openSection + 2));
-		uint16_t maxGrade = std::stoi(*(openSection + 3));
-		exam = gradePair(grade, maxGrade);
-	}
+        uint16_t grade = std::stoi(*(openSection + 2));
+        uint16_t maxGrade = std::stoi(*(openSection + 3));
+        exam = gradePair(grade, maxGrade);
+    }
 
-	currentStudent = name;
+    currentStudent = name;
 
-	return true;
+    return true;
 }
 
 bool Gradebook::saveStudent()
 {
-	std::ofstream ofs("data\\" + currentStudent + ".grades", std::ofstream::trunc);
-	if (!ofs.good())
-	{
-		ofs.close();
-		return false;
-	}
+    std::ofstream ofs("data\\" + currentStudent + ".grades", std::ofstream::trunc);
+    if (!ofs.good())
+    {
+        ofs.close();
+        return false;
+    }
 
-	ofs << "labs { ";
-	for (auto it = labs.begin(); it != labs.end(); it++)
-	{
-		ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
-	}
-	ofs << "} ";
+    ofs << "labs { ";
+    for (auto it = labs.begin(); it != labs.end(); it++)
+    {
+        ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
+    }
+    ofs << "} ";
 
-	ofs << "assignments { ";
-	for (auto it = assignments.begin(); it != assignments.end(); it++)
-	{
-		ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
-	}
-	ofs << "} ";
+    ofs << "assignments { ";
+    for (auto it = assignments.begin(); it != assignments.end(); it++)
+    {
+        ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
+    }
+    ofs << "} ";
 
-	ofs << "projects { ";
-	for (auto it = projects.begin(); it != projects.end(); it++)
-	{
-		ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
-	}
-	ofs << "} ";
+    ofs << "projects { ";
+    for (auto it = projects.begin(); it != projects.end(); it++)
+    {
+        ofs << (*it).first << ' ' << (*it).second.first << ' ' << (*it).second.second << ' ';
+    }
+    ofs << "} ";
 
-	ofs << "exam { " << exam.first << ' ' << exam.second << " }";
+    ofs << "exam { final " << exam.first << ' ' << exam.second << " }";
 
-	ofs.close();
+    ofs.close();
 
-	saved = true;
-	return true;
+    saved = true;
+    return true;
 }
 
 bool Gradebook::addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade)
@@ -549,13 +549,43 @@ void Gradebook::printCourse(uint8_t flags)
 
 void Gradebook::clearData()
 {
-	currentStudent.clear();
-	labs.clear();
-	assignments.clear();
-	projects.clear();
-	exam = gradePair(0, 0);
+    currentStudent.clear();
+    labs.clear();
+    assignments.clear();
+    projects.clear();
+    exam = gradePair(0, 0);
 
-	return;
+    return;
+}
+
+std::string Gradebook::entryToString(EntryType t)
+{
+    if (t == EntryType::lab)
+    {
+        return "Labs";
+    }
+
+    if (t == EntryType::assignment)
+    {
+        return "Assignments";
+    }
+
+    if (t == EntryType::project)
+    {
+        return "Projects";
+    }
+
+    if (t == EntryType::exam)
+    {
+        return "Exam";
+    }
+
+    if (t == EntryType::error)
+    {
+        return "Error";
+    }
+
+    return "";
 }
 
 std::string Gradebook::entryToString(EntryType t)

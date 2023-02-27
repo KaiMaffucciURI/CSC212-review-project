@@ -34,26 +34,26 @@ public:
 		error
 	};
 
-	Gradebook() {}
+    Gradebook() {}
 
-	/// Creates a new student
-	/// Returns true if successful
-	/// Returns false if student name already exists
-	bool createStudent(const std::string& name);
-	/// Loads a student from csv files
-	/// Returns true if successful
-	/// Returns false if student name does not exist
-	bool loadStudent(const std::string& name);
-	/// Saves a student into csv files
-	/// Overwrites existing csv file for this student
-	bool saveStudent();
+    /// Creates a new student
+    /// Returns true if successful
+    /// Returns false if student name already exists
+    bool createStudent(const std::string& name);
+    /// Loads a student from csv files
+    /// Returns true if successful
+    /// Returns false if student name does not exist
+    bool loadStudent(const std::string& name);
+    /// Saves a student into csv files
+    /// Overwrites existing csv file for this student
+    bool saveStudent();
 
-	//Returns true if successful, false if entry already exists
-	bool addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
-	//Returns true if successful, false if entry does not exist
-	bool modifyEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
-	//Returns true if successful, false if entry does not exist
-	bool deleteEntry(EntryType type, const std::string& name);
+    //Returns true if successful, false if entry already exists
+    bool addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
+    //Returns true if successful, false if entry does not exist
+    bool modifyEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade);
+    //Returns true if successful, false if entry does not exist
+    bool deleteEntry(EntryType type, const std::string& name);
 
 	/// Prints a single entry from a category
 	/// Prints a simple error message if entry not found
@@ -72,17 +72,17 @@ public:
 	std::string getStudent() { return currentStudent; }
 
 private:
-	void clearData();
+    void clearData();
 
-	std::string entryToString(EntryType type);
+	  std::string entryToString(EntryType type);
 
-	gradeMap labs;
-	gradeMap assignments;
-	gradeMap projects;
-	gradePair exam;
+    gradeMap labs;
+    gradeMap assignments;
+    gradeMap projects;
+    gradePair exam;
 
-	//Current student loaded
-	std::string currentStudent;
-	//To determine if changes will be unsaved when exiting / changing student
-	bool saved = true;
+    //Current student loaded
+    std::string currentStudent;
+    //To determine if changes will be unsaved when exiting / changing student
+    bool saved = true;
 };

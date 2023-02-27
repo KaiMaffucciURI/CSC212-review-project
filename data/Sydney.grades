@@ -1,0 +1,4 @@
+labs { lab1 20 20 lab2 20 20 lab3 20 20 lab4 20 20 lab5 0 00 lab6 0 0 lab7 0 0 lab8 0 0 lab9 0 0 lab10 0 0 }
+assignments { maze 50 50 assignment2 0 0 assignment3 0 0 assignment4 0 0 }
+projects { gradebook 0 0 project2 0 0 }
+exam { final 0 0 }
