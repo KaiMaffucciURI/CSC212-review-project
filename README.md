@@ -79,5 +79,8 @@ There are a few optional flags that can be used with the *print* command as well
 
 ### Some examples of the program in action
 ![io1](https://user-images.githubusercontent.com/123519150/221448050-f89a25b3-083e-43de-86dd-bd4f104baa80.jpg)
+The printed output of all individual, all category, and overall grades of a student named Sydney
 ![io2](https://user-images.githubusercontent.com/123519150/221448056-47e96407-2d67-4d3a-934a-680dae5f9815.jpg)
+The grades of a student named Kai before changes are made with functions
 ![io3](https://user-images.githubusercontent.com/123519150/221448074-a09a57bc-b08a-4d72-96e6-87a9d5caf5c2.jpg)
+The results after calling add, delete, and modify functions
