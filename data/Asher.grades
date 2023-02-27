@@ -1,0 +1,4 @@
+labs { lab1 15 20 lab2 20 20 lab3 16 20 lab4 20 20 }
+assignments { maze 48 50 }
+projects { }
+exam { final 0 0 }
