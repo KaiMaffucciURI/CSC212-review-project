@@ -587,33 +587,3 @@ std::string Gradebook::entryToString(EntryType t)
 
     return "";
 }
-
-std::string Gradebook::entryToString(EntryType t)
-{
-	if (t == EntryType::lab)
-	{
-		return "Labs";
-	}
-
-	if (t == EntryType::assignment)
-	{
-		return "Assignments";
-	}
-
-	if (t == EntryType::project)
-	{
-		return "Projects";
-	}
-
-	if (t == EntryType::exam)
-	{
-		return "Exam";
-	}
-
-	if (t == EntryType::error)
-	{
-		return "Error";
-	}
-
-	return "";
-}
