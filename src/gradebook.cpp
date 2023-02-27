@@ -9,22 +9,22 @@
 
 bool Gradebook::createStudent(const std::string& name)
 {
-    std::ifstream test("data\\" + name + ".grades");
-    if (test.good())
-    {
-        test.close();
-        return false;
-    }
-    test.close();
+	std::ifstream test("data\\" + name + ".grades");
+	if (test.good())
+	{
+		test.close();
+		return false;
+	}
+	test.close();
 
-    //Student does not already exist
-    //Prepare the gradebook for this student
-    clearData();
-    currentStudent = name;
+	//Student does not already exist
+	//Prepare the gradebook for this student
+	clearData();
+	currentStudent = name;
 
-    saved = false;
+	saved = false;
 
-    return true;
+	return true;
 }
 
 bool Gradebook::loadStudent(const std::string& name)
@@ -219,332 +219,332 @@ bool Gradebook::saveStudent()
 
 bool Gradebook::addEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade)
 {
-    gradeMap* map = nullptr;
+	gradeMap* map = nullptr;
 
-    switch (type)
-    {
-        case EntryType::lab:
-            map = &labs;
-            break;
-        case EntryType::assignment:
-            map = &assignments;
-            break;
-        case EntryType::project:
-            map = &projects;
-            break;
-        case EntryType::exam:
-            if (exam != gradePair(0, 0))
-            {
-                return false;
-            }
-            exam.first = grade;
-            exam.second = maxGrade;
-            saved = false;
-            return true;
-        default:
-            throw std::invalid_argument("Recieved invalid category");
-            return false;
-    }
+	switch (type)
+	{
+	case EntryType::lab:
+		map = &labs;
+		break;
+	case EntryType::assignment:
+		map = &assignments;
+		break;
+	case EntryType::project:
+		map = &projects;
+		break;
+	case EntryType::exam:
+		if (exam != gradePair(0, 0))
+		{
+			return false;
+		}
+		exam.first = grade;
+		exam.second = maxGrade;
+		saved = false;
+		return true;
+	default:
+		throw std::invalid_argument("Recieved invalid category");
+		return false;
+	}
 
-    //Check if entry already exists
-    if (map->find(name) != map->end())
-    {
-        return false;
-    }
+	//Check if entry already exists
+	if (map->find(name) != map->end())
+	{
+		return false;
+	}
 
-    map->insert(std::pair<std::string, gradePair>(name, gradePair(grade, maxGrade)));
-    saved = false;
-
-    return true;
+	map->insert(std::pair<std::string, gradePair>(name, gradePair(grade, maxGrade)));
+	saved = false;
+	
+	return true;
 }
 
 bool Gradebook::modifyEntry(EntryType type, const std::string& name, uint16_t grade, uint16_t maxGrade)
 {
-    gradeMap* map;
+	gradeMap* map;
 
-    switch (type)
-    {
-        case EntryType::lab:
-            map = &labs;
-            break;
-        case EntryType::assignment:
-            map = &assignments;
-            break;
-        case EntryType::project:
-            map = &projects;
-            break;
-        case EntryType::exam:
-            exam.first = grade;
-            exam.second = maxGrade;
-            saved = false;
-            return true;
-        default:
-            throw std::invalid_argument("Recieved invalid category");
-            return false;
-    }
+	switch (type)
+	{
+	case EntryType::lab:
+		map = &labs;
+		break;
+	case EntryType::assignment:
+		map = &assignments;
+		break;
+	case EntryType::project:
+		map = &projects;
+		break;
+	case EntryType::exam:
+		exam.first = grade;
+		exam.second = maxGrade;
+		saved = false;
+		return true;
+	default:
+		throw std::invalid_argument("Recieved invalid category");
+		return false;
+	}
 
-    gradeMap::iterator it = map->find(name);
-    if (it == map->end())
-    {
-        return false;
-    }
+	gradeMap::iterator it = map->find(name);
+	if (it == map->end())
+	{
+		return false;
+	}
 
-    (*it).second = gradePair(grade, maxGrade);
-    saved = false;
+	(*it).second = gradePair(grade, maxGrade);
+	saved = false;
 
-    return true;
+	return true;
 }
 
 bool Gradebook::deleteEntry(EntryType type, const std::string& name)
 {
-    gradeMap* map;
+	gradeMap* map;
 
-    switch (type)
-    {
-        case EntryType::lab:
-            map = &labs;
-            break;
-        case EntryType::assignment:
-            map = &assignments;
-            break;
-        case EntryType::project:
-            map = &projects;
-            break;
-        case EntryType::exam:
-            exam.first = 0;
-            exam.second = 0;
-            saved = false;
-            return true;
-        default:
-            throw std::invalid_argument("Recieved invalid category");
-            return false;
-    }
+	switch (type)
+	{
+	case EntryType::lab:
+		map = &labs;
+		break;
+	case EntryType::assignment:
+		map = &assignments;
+		break;
+	case EntryType::project:
+		map = &projects;
+		break;
+	case EntryType::exam:
+		exam.first = 0;
+		exam.second = 0;
+		saved = false;
+		return true;
+	default:
+		throw std::invalid_argument("Recieved invalid category");
+		return false;
+	}
 
-    gradeMap::iterator it = map->find(name);
-    if (it == map->end())
-    {
-        return false;
-    }
+	gradeMap::iterator it = map->find(name);
+	if (it == map->end())
+	{
+		return false;
+	}
 
-    map->erase(it);
-    saved = false;
+	map->erase(it);
+	saved = false;
 
-    return true;
+	return true;
 }
 
 bool Gradebook::printSingle(EntryType type, const std::string& name)
 {
-    gradeMap* map;
+	gradeMap* map;
 
-    switch (type)
-    {
-        case EntryType::lab:
-            map = &labs;
-            break;
-        case EntryType::assignment:
-            map = &assignments;
-            break;
-        case EntryType::project:
-            map = &projects;
-            break;
-        case EntryType::exam:
-            exam.first = 0;
-            exam.second = 0;
-            saved = false;
-            return true;
-        default:
-            throw std::invalid_argument("Recieved invalid category");
-            return false;
-    }
+	switch (type)
+	{
+	case EntryType::lab:
+		map = &labs;
+		break;
+	case EntryType::assignment:
+		map = &assignments;
+		break;
+	case EntryType::project:
+		map = &projects;
+		break;
+	case EntryType::exam:
+		exam.first = 0;
+		exam.second = 0;
+		saved = false;
+		return true;
+	default:
+		throw std::invalid_argument("Recieved invalid category");
+		return false;
+	}
 
-    gradeMap::iterator it = map->find(name);
-    if (it == map->end())
-    {
-        return false;
-    }
+	gradeMap::iterator it = map->find(name);
+	if (it == map->end())
+	{
+		return false;
+	}
 
-    uint16_t grade = (*it).second.first;
-    uint16_t max = (*it).second.second;
-    std::cout << (*it).first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl << std::endl;
+	uint16_t grade = (*it).second.first;
+	uint16_t max = (*it).second.second;
+	std::cout << (*it).first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl << std::endl;
 
-    return true;
+	return true;
 }
 
 bool Gradebook::printCategory(EntryType type, uint8_t flags)
 {
-    gradeMap* map;
+	gradeMap* map;
 
-    switch (type)
-    {
-        case EntryType::lab:
-            map = &labs;
-            break;
-        case EntryType::assignment:
-            map = &assignments;
-            break;
-        case EntryType::project:
-            map = &projects;
-            break;
-        case EntryType::exam:
-            exam.first = 0;
-            exam.second = 0;
-            saved = false;
-            return true;
-        default:
-            throw std::invalid_argument("Recieved invalid category");
-            return false;
-    }
+	switch (type)
+	{
+	case EntryType::lab:
+		map = &labs;
+		break;
+	case EntryType::assignment:
+		map = &assignments;
+		break;
+	case EntryType::project:
+		map = &projects;
+		break;
+	case EntryType::exam:
+		exam.first = 0;
+		exam.second = 0;
+		saved = false;
+		return true;
+	default:
+		throw std::invalid_argument("Recieved invalid category");
+		return false;
+	}
 
-    if (flags > 1)
-    {
-        throw std::invalid_argument("Recieved invalid flag");
-        return false;
-    }
+	if (flags > 1)
+	{
+		throw std::invalid_argument("Recieved invalid flag");
+		return false;
+	}
 
-    uint16_t catGrade = 0;
-    uint16_t catMax = 0;
+	uint16_t catGrade = 0;
+	uint16_t catMax = 0;
 
-    for (const auto& entry : *map)
-    {
-        uint16_t grade = entry.second.first;
-        uint16_t max = entry.second.second;
+	for (const auto& entry : *map)
+	{
+		uint16_t grade = entry.second.first;
+		uint16_t max = entry.second.second;
 
-        catGrade += grade;
-        catMax += max;
+		catGrade += grade;
+		catMax += max;
 
-        if (flags == 0)
-        {
-            std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
-        }
-    }
+		if (flags == 0)
+		{
+			std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
+		}
+	}
 
-    if (flags == 0)
-    {
-        std::cout << "==================================" << std::endl;
-    }
+	if (flags == 0)
+	{
+		std::cout << "==================================" << std::endl;
+	}
 
-    std::cout << entryToString(type) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
+	std::cout << entryToString(type) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
 
-    return true;
+	return true;
 }
 
 void Gradebook::printCourse(uint8_t flags)
 {
-    if (flags > 2)
-    {
-        throw std::invalid_argument("Recieved invalid flag");
-        return;
-    }
+	if (flags > 2)
+	{
+		throw std::invalid_argument("Recieved invalid flag");
+		return;
+	}
 
-    uint16_t courseGrade = 0;
-    uint16_t courseMax = 0;
+	uint16_t courseGrade = 0;
+	uint16_t courseMax = 0;
 
-    uint16_t catGrade = 0;
-    uint16_t catMax = 0;
+	uint16_t catGrade = 0;
+	uint16_t catMax = 0;
 
-    for (const auto& entry : labs)
-    {
-        uint16_t grade = entry.second.first;
-        uint16_t max = entry.second.second;
+	for (const auto& entry : labs)
+	{
+		uint16_t grade = entry.second.first;
+		uint16_t max = entry.second.second;
 
-        catGrade += grade;
-        catMax += max;
+		catGrade += grade;
+		catMax += max;
 
-        if (flags == 0)
-        {
-            std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
-        }
-    }
+		if (flags == 0)
+		{
+			std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
+		}
+	}
 
-    if (flags == 0)
-    {
-        std::cout << "==================================" << std::endl;
-    }
+	if (flags == 0)
+	{
+		std::cout << "==================================" << std::endl;
+	}
 
-    if (flags != 2)
-    {
-        std::cout << entryToString(EntryType::lab) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
-    }
+	if (flags != 2)
+	{
+		std::cout << entryToString(EntryType::lab) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
+	}
 
-    courseGrade += catGrade;
-    courseMax += catMax;
-    catGrade = 0;
-    catMax = 0;
+	courseGrade += catGrade;
+	courseMax += catMax;
+	catGrade = 0;
+	catMax = 0;
 
-    for (const auto& entry : assignments)
-    {
-        uint16_t grade = entry.second.first;
-        uint16_t max = entry.second.second;
+	for (const auto& entry : assignments)
+	{
+		uint16_t grade = entry.second.first;
+		uint16_t max = entry.second.second;
 
-        catGrade += grade;
-        catMax += max;
+		catGrade += grade;
+		catMax += max;
 
-        if (flags == 0)
-        {
-            std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
-        }
-    }
+		if (flags == 0)
+		{
+			std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
+		}
+	}
 
-    if (flags == 0)
-    {
-        std::cout << "==================================" << std::endl;
-    }
+	if (flags == 0)
+	{
+		std::cout << "==================================" << std::endl;
+	}
 
-    if (flags != 2)
-    {
-        std::cout << entryToString(EntryType::assignment) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
-    }
+	if (flags != 2)
+	{
+		std::cout << entryToString(EntryType::assignment) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
+	}
 
-    courseGrade += catGrade;
-    courseMax += catMax;
-    catGrade = 0;
-    catMax = 0;
+	courseGrade += catGrade;
+	courseMax += catMax;
+	catGrade = 0;
+	catMax = 0;
 
-    for (const auto& entry : projects)
-    {
-        uint16_t grade = entry.second.first;
-        uint16_t max = entry.second.second;
+	for (const auto& entry : projects)
+	{
+		uint16_t grade = entry.second.first;
+		uint16_t max = entry.second.second;
 
-        catGrade += grade;
-        catMax += max;
+		catGrade += grade;
+		catMax += max;
 
-        if (flags == 0)
-        {
-            std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
-        }
-    }
+		if (flags == 0)
+		{
+			std::cout << entry.first << " grade: " << grade << " / " << max << " " << (uint16_t)(((double)grade / (double)max) * 100.0) << "%" << std::endl;
+		}
+	}
 
-    if (flags == 0)
-    {
-        std::cout << "==================================" << std::endl;
-    }
+	if (flags == 0)
+	{
+		std::cout << "==================================" << std::endl;
+	}
+	
+	if (flags != 2)
+	{
+		std::cout << entryToString(EntryType::project) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
+	}
 
-    if (flags != 2)
-    {
-        std::cout << entryToString(EntryType::project) << " grade: " << catGrade << " / " << catMax << " " << (uint16_t)(((double)catGrade / (double)catMax) * 100.0) << "%" << std::endl << std::endl;
-    }
+	courseGrade += catGrade;
+	courseMax += catMax;
+	catGrade = 0;
+	catMax = 0;
 
-    courseGrade += catGrade;
-    courseMax += catMax;
-    catGrade = 0;
-    catMax = 0;
+	courseGrade += exam.first;
+	courseMax += exam.second;
 
-    courseGrade += exam.first;
-    courseMax += exam.second;
+	if (flags != 2)
+	{
+		std::cout << entryToString(EntryType::exam) << " grade: " << exam.first << " / " << exam.second << " " <<  (uint16_t)(((double)exam.first / (double)exam.second) * 100.0) << "%" << std::endl;
+	}
 
-    if (flags != 2)
-    {
-        std::cout << entryToString(EntryType::exam) << " grade: " << exam.first << " / " << exam.second << " " <<  (uint16_t)(((double)exam.first / (double)exam.second) * 100.0) << "%" << std::endl;
-    }
+	if (flags != 2)
+	{
+		std::cout << "==================================" << std::endl;
+	}
 
-    if (flags != 2)
-    {
-        std::cout << "==================================" << std::endl;
-    }
+	std::cout << "Course total: " << courseGrade << " / " << courseMax << " " << (uint16_t)(((double)courseGrade / (double)courseMax) * 100.0) << "%" << std::endl << std::endl;
 
-    std::cout << "Course total: " << courseGrade << " / " << courseMax << " " << (uint16_t)(((double)courseGrade / (double)courseMax) * 100.0) << "%" << std::endl << std::endl;
-
-    return;
+	return;
 }
 
 void Gradebook::clearData()
@@ -586,4 +586,34 @@ std::string Gradebook::entryToString(EntryType t)
     }
 
     return "";
+}
+
+std::string Gradebook::entryToString(EntryType t)
+{
+	if (t == EntryType::lab)
+	{
+		return "Labs";
+	}
+
+	if (t == EntryType::assignment)
+	{
+		return "Assignments";
+	}
+
+	if (t == EntryType::project)
+	{
+		return "Projects";
+	}
+
+	if (t == EntryType::exam)
+	{
+		return "Exam";
+	}
+
+	if (t == EntryType::error)
+	{
+		return "Error";
+	}
+
+	return "";
 }

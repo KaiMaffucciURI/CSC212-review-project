@@ -24,15 +24,15 @@ Notes for Gradebook class:
 class Gradebook
 {
 public:
-    //Helper enum for modifying entries
-    enum class EntryType
-    {
-        lab,
-        assignment,
-        project,
-        exam,
-        error
-    };
+	//Helper enum for modifying entries
+	enum class EntryType
+	{
+		lab,
+		assignment,
+		project,
+		exam,
+		error
+	};
 
     Gradebook() {}
 
@@ -55,26 +55,26 @@ public:
     //Returns true if successful, false if entry does not exist
     bool deleteEntry(EntryType type, const std::string& name);
 
-    /// Prints a single entry from a category
-    /// Prints a simple error message if entry not found
-    bool printSingle(EntryType type, const std::string& name);
-    /// Prints a category
-    /// flag 0 prints all
-    /// flag 1 prints only the category
-    bool printCategory(EntryType type, uint8_t flags = 0);
-    /// Prints the course grade
-    /// flag 0 Prints all categories and entries
-    /// flag 1 Prints all categories
-    /// flag 2 Prints only the course grade
-    void printCourse(uint8_t flags = 0);
+	/// Prints a single entry from a category
+	/// Prints a simple error message if entry not found
+	bool printSingle(EntryType type, const std::string& name);
+	/// Prints a category
+	/// flag 0 prints all
+	/// flag 1 prints only the category
+	bool printCategory(EntryType type, uint8_t flags = 0);
+	/// Prints the course grade
+	/// flag 0 Prints all categories and entries
+	/// flag 1 Prints all categories
+	/// flag 2 Prints only the course grade
+	void printCourse(uint8_t flags = 0);
 
-    bool isSaved() { return saved; }
-    std::string getStudent() { return currentStudent; }
+	bool isSaved() { return saved; }
+	std::string getStudent() { return currentStudent; }
 
 private:
     void clearData();
 
-    std::string entryToString(EntryType type);
+	  std::string entryToString(EntryType type);
 
     gradeMap labs;
     gradeMap assignments;

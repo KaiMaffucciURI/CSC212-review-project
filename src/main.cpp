@@ -63,7 +63,7 @@ int main()
         }
 
         std::transform(tokens.at(0).begin(), tokens.at(0).end(), tokens.at(0).begin(),
-                       [](char a) { return std::tolower(a); });
+		        [](char a) { return std::tolower(a); });
 
         if (tokens.at(0) == "exit")
         {
@@ -274,7 +274,7 @@ int main()
                 maxGrade = std::stoi(tokens.at(4));
             }
             catch (std::invalid_argument const& e)
-            {
+            { 
                 std::cout << e.what() << ", usage - add [cat] [name] [grade] [max]" << std::endl;
                 continue;
             }
@@ -317,7 +317,7 @@ int main()
                 maxGrade = std::stoi(tokens.at(4));
             }
             catch (std::invalid_argument const& e)
-            {
+            { 
                 std::cout << e.what() << ", usage - modify [cat] [name] [grade] [max]" << std::endl;
                 continue;
             }
@@ -416,9 +416,8 @@ int main()
                     book.printCategory(t, 1);
                     continue;
                 }
-
-                std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
-
+		    
+		            std::cout << "Invalid flag, usage - print all [flags], print [cat] [flags], print [cat] [name]" << std::endl;
                 continue;
             }
 
@@ -430,6 +429,6 @@ int main()
             continue;
         }
     }
-
-    return 0;
+    
+	return 0;
 }
