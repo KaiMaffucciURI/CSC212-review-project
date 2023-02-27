@@ -16,3 +16,5 @@
 *.ipch
 /src/out/build/x64-Debug/CMakeFiles
 /src/out/build/x64-Debug
+*.xml
+*.iml
