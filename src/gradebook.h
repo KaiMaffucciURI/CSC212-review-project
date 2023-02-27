@@ -73,8 +73,7 @@ public:
 
 private:
     void clearData();
-
-	  std::string entryToString(EntryType type);
+    std::string entryToString(EntryType type);
 
     gradeMap labs;
     gradeMap assignments;
