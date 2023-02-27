@@ -6,6 +6,7 @@
 
 #include "gradebook.h"
 
+// helper function to convert string into type
 Gradebook::EntryType getType(const std::string& str)
 {
     if (str == "labs")
@@ -34,13 +35,18 @@ Gradebook::EntryType getType(const std::string& str)
 int main()
 {
 
+    // where we'll be modifying data in memory, before it gets saved to hard storage
     Gradebook book;
 
+    // initial prompt to user so they're not clueless on what to do after launching program
     std::cout << "type 'help' for help" << std::endl;
 
+    // main control flow
     bool running = true;
     while (running)
     {
+
+        // tokenizing user input into processable form
         std::cout << book.getStudent() << '>';
 
         std::string line;
@@ -65,8 +71,14 @@ int main()
         std::transform(tokens.at(0).begin(), tokens.at(0).end(), tokens.at(0).begin(),
 		        [](char a) { return std::tolower(a); });
 
+        /*
+         * depending on what the token is, we do some input sanitization
+         * if the user inputted anything invalid, we handle it immediately
+         * before even thinking about calling a method
+         */
         if (tokens.at(0) == "exit")
         {
+            // if the user tries to exit with unsaved changes, prompt them
             if (!book.isSaved())
             {
                 std::cout << "There are unsaved changes, save now? y/n ";
@@ -85,6 +97,7 @@ int main()
 
         if (tokens.at(0) == "help")
         {
+            // if the user inputted only "help"
             if (tokens.size() == 1)
             {
                 std::cout << "The following commands are available:" << std::endl;
@@ -103,6 +116,8 @@ int main()
 
                 continue;
             }
+
+            // if they asked for help with a specific command, display help for that given command
 
             if (tokens.at(1) == "new")
             {
@@ -169,6 +184,8 @@ int main()
             continue;
         }
 
+        // when creating new user, checks if that student already exists
+        // or if there is a student currently loaded into memory
         if (tokens.at(0) == "new")
         {
 
@@ -199,6 +216,7 @@ int main()
             continue;
         }
 
+        // checks if user gave a valid student to load into memory
         if (tokens.at(0) == "load")
         {
             if (tokens.size() == 1)
@@ -228,6 +246,7 @@ int main()
             continue;
         }
 
+        // checks if the user gave proper arguments to save student to memory
         if (tokens.at(0) == "save")
         {
             if (book.getStudent() == "")
@@ -244,6 +263,7 @@ int main()
             continue;
         }
 
+        // checks if user gave proper args to add an assignment to currently loaded student's record
         if (tokens.at(0) == "add")
         {
             if (book.getStudent() == "")
@@ -287,6 +307,7 @@ int main()
             continue;
         }
 
+        // checks if proper args were given to modify student currently loaded into memory
         if (tokens.at(0) == "modify")
         {
             if (book.getStudent() == "")
@@ -330,6 +351,7 @@ int main()
             continue;
         }
 
+        // checks if user gave proper args to delete an assignment from loaded student's record
         if (tokens.at(0) == "delete")
         {
             if (book.getStudent() == "")
@@ -359,6 +381,7 @@ int main()
             continue;
         }
 
+        // checks if proper args were given to print assignment(s) of currently loaded student
         if (tokens.at(0) == "print")
         {
             if (book.getStudent() == "")
